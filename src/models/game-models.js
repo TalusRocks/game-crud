@@ -20,7 +20,7 @@ function getOneGame(id) {
 function createGame(body) {
   let response
   if (!body) {
-    response = {error: {message: "Please complete all fields"}}
+    response = {errors: {message: "Please complete all fields"}}
   } else {
     body.id = uuid()
     games.push(body)
@@ -40,15 +40,10 @@ function editGame(id, body) {
   else if (!body) {
     response = {error: {message: "Please complete all fields"}}
   } else {
-    console.log(thisGame, "thisGame");
-    console.log(body, "body");
-    //better way to do this?
     thisGame.title = body.title
     thisGame.image = body.image
     thisGame.description = body.description
     thisGame.designers = body.designers
-    thisGame.artists = body.artists
-    thisGame.publishers = body.publishers
     thisGame.year = body.year
     thisGame.rating = body.rating
 

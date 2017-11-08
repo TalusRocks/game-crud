@@ -4,7 +4,7 @@ const gameCtrl = require('../controllers/game-controllers')
 
 router.get('/', gameCtrl.getAllGames)
 router.get('/:gameId', gameCtrl.getOneGame)
-router.post('/', gameCtrl.createGame)
+router.post('/', gameCtrl.complete, gameCtrl.createGame)
 router.put('/:gameId', gameCtrl.editGame)
 router.delete('/:gameId', gameCtrl.destroyGame)
 
