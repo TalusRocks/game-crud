@@ -2,7 +2,10 @@ const model = require('../models/game-models')
 const fields = ['title', 'image', 'designers', 'year', 'rating']
 
 function getAllGames(req, res, next) {
-  res.status(200).json(model.getAllGames())
+  // res.status(200).json(model.getAllGames())
+  model.getAllGames().then(games => {
+    res.json(games)
+  })
 }
 
 function getOneGame(req, res, next) {

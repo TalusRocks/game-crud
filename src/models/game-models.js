@@ -1,9 +1,9 @@
-const fs = require('fs')
-const games = JSON.parse(fs.readFileSync('./db/games.json', 'utf-8'))
 const uuid = require('uuid-v4')
+const knex = require('../../db/connection')
 
 function getAllGames() {
-  return games
+  // return games
+  return knex('games')
 }
 
 function getOneGame(id) {
