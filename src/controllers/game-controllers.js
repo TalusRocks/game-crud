@@ -32,12 +32,12 @@ function destroyGame(req, res, next) {
   })
 }
 
-// function prune(req, res, next) {
-//  Object.keys(req.body).forEach(key => {
-//    if (!pruneFields.includes(key)) delete req.body[key]
-//  })
-//  return next()
-// }
+function prune(req, res, next) {
+ Object.keys(req.body).forEach(key => {
+   if (!pruneFields.includes(key)) delete req.body[key]
+ })
+ return next()
+}
 
 function complete(req, res, next) {
   const errors = fields.filter(field => !req.body[field])
@@ -52,4 +52,4 @@ function complete(req, res, next) {
   return next()
 }
 
-module.exports = { getAllGames, getOneGame, createGame, editGame, destroyGame, complete}
+module.exports = { getAllGames, getOneGame, createGame, editGame, destroyGame, complete, prune }

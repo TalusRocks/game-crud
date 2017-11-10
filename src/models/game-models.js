@@ -13,14 +13,15 @@ function createGame(body) {
   return knex('games')
     .insert(body)
     .returning('*')
-    .then((game) => game)
+    .then(([game]) => game)
 }
 
 function editGame(id, body) {
   return knex('games')
     .update(body)
     .where({ id })
-    .then((game) => game)
+    .returning('*')
+    .then(([game]) => game)
 }
 
 function destroyGame(id) {
@@ -28,7 +29,7 @@ function destroyGame(id) {
     .del()
     .where({ id })
     .returning('*')
-    .then((game) => game)
+    .then(([game]) => game)
 }
 
 module.exports = { getAllGames, getOneGame, createGame, editGame, destroyGame }
