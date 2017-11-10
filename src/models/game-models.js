@@ -23,15 +23,6 @@ function getOneGame(id) {
 
 function createGame(body) {
   console.log(body, "body before knex");
-  //comes back as:
-  // { title: 'Meeple Circus',
-  // image: 'https://cf.geekdo-images.com/images/pic3811460_md.jpg',
-  // rating: '6',
-  // description: '',
-  // designers: 'Millet',
-  // year: '2017',
-  // id: '' } 'body before knex'
-
   return knex('games')
     .insert(body)
     .returning('*')
@@ -39,9 +30,6 @@ function createGame(body) {
       console.log(game, "inside then");
       return game
     })
-
-  //old code, when writing to json, included:
-    // body.id = uuid()
 }
 
 function editGame(id, body) {
