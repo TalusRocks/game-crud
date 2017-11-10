@@ -8,6 +8,10 @@ function getAllGames() {
 
 function getOneGame(id) {
   const thisGame = games.find(el => el.id === id)
+  // return knex('games')
+  //   .where({id: id})
+  //   .first()
+  //   .then( thisGame => thisGame)
   let response
   if (!thisGame) {
     response = {error: {message: "Could not find that game"}}
@@ -18,17 +22,26 @@ function getOneGame(id) {
 }
 
 function createGame(body) {
-  let response
-  if (!body) {
-    response = {errors: {message: "Please complete all fields"}}
-  } else {
-    body.id = uuid()
-    games.push(body)
-    const result = JSON.stringify(games)
-    fs.writeFileSync('./db/games.json', result, 'utf-8')
-    response = body
-  }
-  return response
+  console.log(body, "body before knex");
+  //comes back as:
+  // { title: 'Meeple Circus',
+  // image: 'https://cf.geekdo-images.com/images/pic3811460_md.jpg',
+  // rating: '6',
+  // description: '',
+  // designers: 'Millet',
+  // year: '2017',
+  // id: '' } 'body before knex'
+
+  return knex('games')
+    .insert(body)
+    .returning('*')
+    .then((game) => {
+      console.log(game, "inside then");
+      return game
+    })
+
+  //old code, when writing to json, included:
+    // body.id = uuid()
 }
 
 function editGame(id, body) {

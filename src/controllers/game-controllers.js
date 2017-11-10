@@ -14,9 +14,11 @@ function getOneGame(req, res, next) {
 }
 
 function createGame(req, res, next) {
-  const body = req.body
-
-  res.status(201).json(model.createGame(body))
+  // const body = req.body
+  // res.status(201).json(model.createGame(body))
+  model.createGame(req.body).then(game => {
+    res.status(201).json(game)
+  })
 }
 
 function editGame(req, res, next) {
