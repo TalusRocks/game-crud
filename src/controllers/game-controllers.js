@@ -1,36 +1,43 @@
 const model = require('../models/game-models')
 const fields = ['title', 'image', 'designers', 'year', 'rating']
+const pruneFields = ['title', 'image', 'designers', 'description', 'year', 'rating']
 
 function getAllGames(req, res, next) {
-  // res.status(200).json(model.getAllGames())
   model.getAllGames().then(games => {
     res.json(games)
   })
 }
 
 function getOneGame(req, res, next) {
-  const id = req.params.gameId
-  res.status(200).json(model.getOneGame(id))
+  model.getOneGame(req.params.gameId).then(game => {
+    res.json(game)
+  })
 }
 
 function createGame(req, res, next) {
-  // const body = req.body
-  // res.status(201).json(model.createGame(body))
   model.createGame(req.body).then(game => {
     res.status(201).json(game)
   })
 }
 
 function editGame(req, res, next) {
-  const id = req.params.gameId
-  const body = req.body
-  res.status(200).json(model.editGame(id, body))
+  model.editGame(req.params.gameId, req.body).then(game => {
+    res.status(200).json(game)
+  })
 }
 
 function destroyGame(req, res, next) {
-  const id = req.params.gameId
-  res.status(200).json(model.destroyGame(id))
+  model.destroyGame(req.params.gameId).then(game => {
+    res.json(game)
+  })
 }
+
+// function prune(req, res, next) {
+//  Object.keys(req.body).forEach(key => {
+//    if (!pruneFields.includes(key)) delete req.body[key]
+//  })
+//  return next()
+// }
 
 function complete(req, res, next) {
   const errors = fields.filter(field => !req.body[field])
@@ -45,4 +52,4 @@ function complete(req, res, next) {
   return next()
 }
 
-module.exports = { getAllGames, getOneGame, createGame, editGame, destroyGame, complete }
+module.exports = { getAllGames, getOneGame, createGame, editGame, destroyGame, complete}
